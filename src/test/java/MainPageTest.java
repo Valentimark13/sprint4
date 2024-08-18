@@ -89,9 +89,7 @@ public class MainPageTest extends AbstractBaseTest {
         }
 
         String currentUrl = driver.getCurrentUrl();
-        // Ожидаемый URL
         String expectedUrl = "https://yandex.ru/";
-        // Проверяем, что текущий URL совпадает с ожидаемым
         assertEquals(
                 "URL текущей страницы должен быть '" + expectedUrl + "'" +
                         " после клика на логотип",

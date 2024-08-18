@@ -21,9 +21,7 @@ public class MainPageModel extends AbstractPageModel {
     private final By orderNumberInput = new By.ByClassName("Input_Input__1iN_Z");
 
     private final By checkButton = new By.ByClassName("Header_Button__28dPO");
-
     private final By accordionItems = new By.ByCssSelector("[data-accordion-component='AccordionItemButton']");
-
     public MainPageModel(WebDriver driver) {
         super(driver);
     }
