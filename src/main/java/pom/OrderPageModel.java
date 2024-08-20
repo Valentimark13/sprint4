@@ -1,7 +1,7 @@
 package pom;
 
-import dto.FirstFormDto;
-import dto.SecondFormDto;
+import dto.PersonalDetailsForm;
+import dto.DeliveryDetailsForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
@@ -35,7 +35,7 @@ public class OrderPageModel extends AbstractPageModel {
         super(driver);
     }
 
-    public void fillFirstFormAndGoNext(FirstFormDto dto) {
+    public void fillFirstFormAndGoNext(PersonalDetailsForm dto) {
         List<WebElement> inputs = this.getForm(firstStep).findElements(formItem);
 
         inputs.get(0).sendKeys(dto.name);
@@ -58,7 +58,7 @@ public class OrderPageModel extends AbstractPageModel {
         driver.findElement(nextButton).click();
     }
 
-    public void fillSecondFormAndFinish(SecondFormDto dto) {
+    public void fillSecondFormAndFinish(DeliveryDetailsForm dto) {
         List<WebElement> inputs = getForm(secondStep).findElements(formItem);
 
         waitDriver.until(ExpectedConditions.elementToBeClickable(dueDateInput)).sendKeys(dto.dueDate);

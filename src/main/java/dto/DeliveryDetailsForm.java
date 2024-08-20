@@ -1,6 +1,6 @@
 package dto;
 
-public class SecondFormDto {
+public class DeliveryDetailsForm {
     public final String dueDate;
 
     public final String duration;
@@ -9,7 +9,7 @@ public class SecondFormDto {
 
     public final String comment;
 
-    public SecondFormDto(String dueDate, String duration, String color, String comment) {
+    public DeliveryDetailsForm(String dueDate, String duration, String color, String comment) {
         this.dueDate = dueDate;
         this.duration = duration;
         this.color = color;

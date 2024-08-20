@@ -4,7 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class MainPageModel extends AbstractPageModel {
@@ -22,17 +25,23 @@ public class MainPageModel extends AbstractPageModel {
 
     private final By checkButton = new By.ByClassName("Header_Button__28dPO");
     private final By accordionItems = new By.ByCssSelector("[data-accordion-component='AccordionItemButton']");
+
+    private final By accordionPanel = new By.ByClassName("accordion__panel");
+
     public MainPageModel(WebDriver driver) {
         super(driver);
     }
 
-    public void clickDropDownList(int index) throws InterruptedException {
-        Thread.sleep(1000);
+    public void clickDropDownList(int index) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(dropDownList));
-        Thread.sleep(2000);
         List<WebElement> accordionButtons = driver.findElements(accordionItems);
-        accordionButtons.get(index).click();
+        waitDriver.until(ExpectedConditions.elementToBeClickable(accordionButtons.get(index))).click();
+    }
+
+    public String getAccordionDataPanelText(int index) {
+        List<WebElement> panels = driver.findElements(accordionPanel);
+        return waitDriver.until(ExpectedConditions.visibilityOf(panels.get(index))).getText().trim();
     }
 
     public void clickTopOrderBtn() {
@@ -42,8 +51,7 @@ public class MainPageModel extends AbstractPageModel {
     public void clickBottomOrderBtn() throws InterruptedException {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(bottomOrderBtn));
-        Thread.sleep(2000);
-        driver.findElement(bottomOrderBtn).click();
+        waitDriver.until(ExpectedConditions.elementToBeClickable(bottomOrderBtn)).click();
     }
 
     public void clickScooterLogo() {
@@ -54,12 +62,23 @@ public class MainPageModel extends AbstractPageModel {
         return driver.findElement(this.yandexLogo);
     }
 
-    public void checkOrderStatus(int orderNumber) throws InterruptedException {
-        Thread.sleep(1000);
-        driver.findElement(statusBtn).click();
-        Thread.sleep(1000);
-        driver.findElement(orderNumberInput).sendKeys(Integer.toString(orderNumber));
-        Thread.sleep(1000);
-        driver.findElement(checkButton).click();
+    public void checkOrderStatus(int orderNumber) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(10));
+
+        // Ожидание видимости элемента выпадающего списка
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(dropDownList));
+
+        // Клик по кнопке статуса заказа, ожидаем появления кнопки и кликаем по ней
+        WebElement statusButton = wait.until(ExpectedConditions.elementToBeClickable(statusBtn));
+        statusButton.click();
+
+        // Ввод номера заказа, ожидаем видимости поля ввода и отправляем в него номер заказа
+        WebElement orderNumberInputField = wait.until(ExpectedConditions.visibilityOfElementLocated(orderNumberInput));
+        orderNumberInputField.clear();
+        orderNumberInputField.sendKeys(Integer.toString(orderNumber));
+
+        // Клик по кнопке проверки, ожидаем кликабельность кнопки и кликаем по ней
+        WebElement checkButtonElement = wait.until(ExpectedConditions.elementToBeClickable(checkButton));
+        checkButtonElement.click();
     }
 }

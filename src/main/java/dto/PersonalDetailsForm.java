@@ -1,6 +1,6 @@
 package dto;
 
-public class FirstFormDto {
+public class PersonalDetailsForm {
     public final String name;
     public final String surName;
 
@@ -10,7 +10,7 @@ public class FirstFormDto {
 
     public final String phone;
 
-    public FirstFormDto(String name, String surName, String address, String station, String phone) {
+    public PersonalDetailsForm(String name, String surName, String address, String station, String phone) {
         this.name = name;
         this.surName = surName;
         this.address = address;
