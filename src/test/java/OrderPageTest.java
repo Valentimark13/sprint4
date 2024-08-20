@@ -3,13 +3,10 @@ import dto.DeliveryDetailsForm;
 import org.junit.runners.Parameterized;
 import org.junit.runner.RunWith;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.SearchContext;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -48,7 +45,7 @@ public class OrderPageTest extends AbstractBaseTest {
         orderPageService.fillFirstFormAndGoNext(personalDetailsForm);
         orderPageService.fillSecondFormAndFinish(deliveryDetailsForm);
 
-        assertEquals("Заказ оформлен", this.orderPageService.getOrderSuccessText());
+        assertEquals(this.driverName, "Заказ оформлен", this.orderPageService.getOrderSuccessText());
     }
 
     @Test

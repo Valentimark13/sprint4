@@ -12,12 +12,12 @@ import java.util.List;
 
 public class MainPageModel extends AbstractPageModel {
     private final By dropDownList = new By.ByClassName("accordion");
-    private final By topOrderBtn = new By.ByXPath("//*[@id=\"root\"]/div/div/div[1]/div[2]/button[1]");
-    private final By bottomOrderBtn = new By.ByXPath("//*[@id=\"root\"]/div/div/div[4]/div[2]/div[5]/button");
+    public static By topOrderBtn = By.cssSelector(".Header_Nav__AGCXC .Button_Button__ra12g");
 
-    private final By scooterLogo = new By.ByXPath("//*[@id=\"root\"]/div/div/div[1]/div[1]/a[2]");
+    private final By bottomOrderBtn = new By.ByCssSelector(".Home_RoadMap__2tal_ .Button_Button__ra12g");
+    private final By scooterLogo = new By.ByClassName("Header_LogoScooter__3lsAR");
 
-    private final By yandexLogo = new By.ByXPath("//*[@id=\"root\"]/div/div/div[1]/div[1]/a[1]");
+    private final By yandexLogo = new By.ByClassName("Header_LogoYandex__3TSOI");
 
     private final By statusBtn = new By.ByClassName("Header_Link__1TAG7");
 

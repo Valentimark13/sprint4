@@ -15,21 +15,14 @@ public class OrderPageModel extends AbstractPageModel {
     public final By firstStep = new By.ByClassName("Order_Form__17u6u");
     public final By secondStep = new By.ByClassName("Order_Form__17u6u");
     public final By formItem = new By.ByTagName("input");
-    public final By nextButton = new By.ByXPath("//*[@id=\"root\"]/div/div[2]/div[3]/button");
-    private final By finishButton = new By.ByXPath("//*[@id=\"root\"]/div/div[2]/div[3]/button[2]");
-
-    private final By acceptOrderButton = new By.ByXPath("//*[@id=\"root\"]/div/div[2]/div[5]/div[2]/button[2]");
-
-    private final By metroStationInput = new By.ByXPath("//input[@placeholder='* Станция метро']");
-
+    public final By nextButton = new By.ByCssSelector(".Button_Button__ra12g.Button_Middle__1CSJM");
+    private final By finishButton = new By.ByCssSelector(".Button_Button__ra12g.Button_Middle__1CSJM:not([class*='Button_Inverted__3IF-i'])");
+    private final By acceptOrderButton = new By.ByCssSelector("div.Order_Modal__YZ-d3>div.Order_Buttons__1xGrp>button.Button_Button__ra12g.Button_Middle__1CSJM:not([class*='Button_Inverted__3IF-i'])");
+    private final By metroStationInput = new By.ByClassName("select-search__input");
     private final By stationElement = new By.ByClassName("select-search__row");
-
     private final By dayPickerElement = new By.ByClassName("react-datepicker__day");
-
-    private final By dueDateInput = new By.ByXPath("//input[@placeholder='* Когда привезти самокат']");
-
-    private final By duration = new By.ByXPath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]");
-
+    private final By dueDateInput = new By.ByCssSelector(".react-datepicker__input-container>input");
+    private final By duration = new By.ByXPath("//div[@class='Dropdown-placeholder'][contains(text(), '* Срок аренды')]");
     private final By durationOptions =  new By.ByClassName("Dropdown-option");
     private final By orderModalHeader = new By.ByClassName("Order_ModalHeader__3FDaJ");
 
@@ -86,7 +79,7 @@ public class OrderPageModel extends AbstractPageModel {
 
         inputs.get(3).sendKeys(dto.comment);
 
-        driver.findElement(finishButton).click();
+        waitDriver.until(ExpectedConditions.elementToBeClickable(finishButton)).click();
         waitDriver.until(ExpectedConditions.elementToBeClickable(acceptOrderButton)).click();
     }
 

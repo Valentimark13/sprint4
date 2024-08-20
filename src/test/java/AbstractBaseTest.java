@@ -11,13 +11,16 @@ public abstract class AbstractBaseTest {
     protected WebDriver driver;
     protected MainPageModel mainPageService;
     protected OrderPageModel orderPageService;
+    public String driverName;
 
     @Before
     public void setUp() {
         if (Math.random() < 0.5) {
             this.driver = new ChromeDriver();
+            driverName = "Chrome";
         } else {
             this.driver = new FirefoxDriver();
+            driverName = "Firefox";
         }
 
         this.driver.get(MAIN_URL);
