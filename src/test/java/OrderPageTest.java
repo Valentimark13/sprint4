@@ -38,10 +38,8 @@ public class OrderPageTest extends AbstractBaseTest {
         mainPageService.clickTopOrderBtn();
         orderPageService.fillFirstFormAndGoNext(personalDetailsForm);
         orderPageService.fillSecondFormAndFinish(deliveryDetailsForm);
-        WebElement orderSuccess = driver.findElement(By.className("Order_ModalHeader__3FDaJ"));
-        String fullText = orderSuccess.getText();
-        String orderedText = fullText.split("\n")[0];
-        assertEquals("Заказ оформлен", orderedText);
+
+        assertEquals("Заказ оформлен", this.orderPageService.getOrderSuccessText());
     }
 
     @Test
@@ -49,10 +47,8 @@ public class OrderPageTest extends AbstractBaseTest {
         mainPageService.clickBottomOrderBtn();
         orderPageService.fillFirstFormAndGoNext(personalDetailsForm);
         orderPageService.fillSecondFormAndFinish(deliveryDetailsForm);
-        WebElement orderSuccess = driver.findElement(By.className("Order_ModalHeader__3FDaJ"));
-        String fullText = orderSuccess.getText();
-        String orderedText = fullText.split("\n")[0];
-        assertEquals("Заказ оформлен", orderedText);
+
+        assertEquals("Заказ оформлен", this.orderPageService.getOrderSuccessText());
     }
 
     @Test
@@ -61,12 +57,12 @@ public class OrderPageTest extends AbstractBaseTest {
         PersonalDetailsForm invalidDto = new PersonalDetailsForm("tes", "tes", "tes", "tes", "test");
         orderPageService.fillFirstFormAndGoNext(invalidDto);
         SearchContext form = orderPageService.getForm(orderPageService.firstStep);
-        List<WebElement> errors = form.findElements(By.className("Input_ErrorMessage__3HvIb"));
-        assertEquals("Введите корректное имя", errors.get(0).getText().trim());
-        assertEquals("Введите корректную фамилию", errors.get(1).getText().trim());
-        assertEquals("Введите корректный адрес", errors.get(2).getText().trim());
-        WebElement metroError = form.findElement(By.className("Order_MetroError__1BtZb"));
-        assertEquals("Выберите станцию", metroError.getText().trim());
-        assertEquals("Введите корректный номер", errors.get(3).getText().trim());
+
+        assertEquals("Введите корректное имя", orderPageService.getFormInputsErrorText(form, 0));
+        assertEquals("Введите корректную фамилию", orderPageService.getFormInputsErrorText(form, 1));
+        assertEquals("Введите корректный адрес", orderPageService.getFormInputsErrorText(form, 2));
+        assertEquals("Введите корректный номер", orderPageService.getFormInputsErrorText(form, 3));
+
+        assertEquals("Выберите станцию", this.orderPageService.getMetroTextError(form));
     }
 }

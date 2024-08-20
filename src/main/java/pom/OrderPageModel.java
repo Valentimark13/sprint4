@@ -31,6 +31,11 @@ public class OrderPageModel extends AbstractPageModel {
     private final By duration = new By.ByXPath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]");
 
     private final By durationOptions =  new By.ByClassName("Dropdown-option");
+    private final By orderModalHeader = new By.ByClassName("Order_ModalHeader__3FDaJ");
+
+    private final By orderListError = By.className("Input_ErrorMessage__3HvIb");
+    private final By metroElementError = By.className("Order_MetroError__1BtZb");
+
     public OrderPageModel(WebDriver driver) {
         super(driver);
     }
@@ -87,5 +92,18 @@ public class OrderPageModel extends AbstractPageModel {
 
     public SearchContext getForm(By form) {
         return driver.findElement(form);
+    }
+
+    public String getOrderSuccessText()
+    {
+        return driver.findElement(this.orderModalHeader).getText().split("\n")[0];
+    }
+
+    public String getMetroTextError(SearchContext form) {
+        return form.findElement(this.metroElementError).getText().trim();
+    }
+
+    public String getFormInputsErrorText(SearchContext form, Integer index) {
+        return form.findElements(orderListError).get(index).getText().trim();
     }
 }

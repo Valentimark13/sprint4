@@ -28,6 +28,8 @@ public class MainPageModel extends AbstractPageModel {
 
     private final By accordionPanel = new By.ByClassName("accordion__panel");
 
+    private final By notFoundOrderImage = By.cssSelector(".Track_NotFound__6oaoY img");
+
     public MainPageModel(WebDriver driver) {
         super(driver);
     }
@@ -81,4 +83,10 @@ public class MainPageModel extends AbstractPageModel {
         WebElement checkButtonElement = wait.until(ExpectedConditions.elementToBeClickable(checkButton));
         checkButtonElement.click();
     }
+
+    public WebElement getNotFoundOrderElement()
+    {
+        return waitDriver.until(ExpectedConditions.visibilityOfElementLocated(this.notFoundOrderImage));
+    }
 }
+
